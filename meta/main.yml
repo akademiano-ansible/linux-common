@@ -2,7 +2,6 @@ galaxy_info:
   role_name: akademiano_linux_common
   author: mrdatamapper
   description: base role for linux os
-  company: Akademiano
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
