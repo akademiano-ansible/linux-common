@@ -9,5 +9,3 @@ list_of_common_packages:
   - iotop
   - nano
   - python3-pexpect
-
-
