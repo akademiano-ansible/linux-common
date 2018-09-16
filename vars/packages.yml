@@ -1,0 +1,13 @@
+list_of_common_packages:
+  - mc
+  - htop
+  - tmux
+  - nano
+  - pv
+  - wget
+  - curl
+  - iotop
+  - nano
+  - python3-pexpect
+
+
