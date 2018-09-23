@@ -20,7 +20,7 @@
   async: 1
   poll: 0
   ignore_errors: true
-  when: needreboot.stat.exists == true
+  when: needreboot.stat.exists == true and inventory_hostname!="localhost"
 
 - name: Wait for server to reboot.
   become: false
@@ -30,4 +30,8 @@
     timeout: 180
     host: "{{ ansible_ssh_host }}"
     state: started
-  when: needreboot.stat.exists == true
+  when: needreboot.stat.exists == true and inventory_hostname!="localhost"
+
+- debug:
+    msg: "Please rebbot manually on localhost"
+  when: needreboot.stat.exists == true and inventory_hostname=="localhost"
