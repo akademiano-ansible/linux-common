@@ -1,10 +1,26 @@
 ---
 
-- name: Update Repos
-  include_tasks: 'repos.yml'
+- import_tasks: 'repos.yml'
 
-- name: Update System
-  include_tasks: 'update.yml'
+- import_tasks: 'update.yml'
 
-- name: Install common pckages
-  include_tasks: 'install.yml'
+- import_tasks: 'install.yml'
+
+- stat: path=/etc/cloud/cloud.cfg
+  register: cloud_cfg
+
+- lineinfile:
+    path: /etc/cloud/cloud.cfg
+    regexp: '^preserve_hostname: false'
+    line: 'preserve_hostname: true'
+  when: cloud_cfg.stat.exists == True
+  become: yes
+
+- hostname:
+    name: "{{hostname}}"
+  when: hostname is defined
+  become: yes
+
+
+
+
