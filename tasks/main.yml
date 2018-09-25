@@ -11,15 +11,17 @@
 
 - lineinfile:
     path: /etc/cloud/cloud.cfg
-    regexp: '^preserve_hostname: false'
+    regexp: '^preserve_hostname:'
     line: 'preserve_hostname: true'
   when: cloud_cfg.stat.exists == True
   become: yes
+  notify: os reboot
 
 - hostname:
     name: "{{hostname}}"
   when: hostname is defined
   become: yes
+  notify: os reboot
 
 
 
