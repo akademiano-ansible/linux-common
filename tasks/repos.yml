@@ -1,6 +1,6 @@
 ---
 
-- name: Update System
+- name: update repos
   become: yes
   replace:
     path: /etc/apt/sources.list

@@ -8,6 +8,14 @@
     force_apt_get: yes
     update_cache: yes
     upgrade: dist
+  when: allow_upgrade
+
+- name: Update System
+  become: yes
+  apt: 
+    cache_valid_time: 3600
+    update_cache: yes
+  when: not allow_upgrade
 
 - name: Check if a reboot is required
   stat:

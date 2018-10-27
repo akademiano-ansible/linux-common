@@ -18,11 +18,16 @@
   notify: os reboot
 
 - hostname:
-    name: "{{hostname}}"
+    name: "{{ hostname }}"
   when: hostname is defined
   become: yes
   notify: os reboot
 
+- name: enable SSH forwarding for sudo
+  lineinfile:
+    dest: /etc/sudoers
+    insertafter: '^#?\s*Defaults\s+env_keep\b'
+    line: 'Defaults    env_keep += "SSH_AUTH_SOCK"'
+  become: yes
 
-
-
+- import_tasks: 'locale_timezone.yml'
