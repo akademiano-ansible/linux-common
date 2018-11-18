@@ -8,3 +8,6 @@ allow_upgrade: true
 locales:
   - en_US.UTF-8
   - ru_RU.UTF-8
+
+locale: en_US.UTF-8
+timezone: Etc/UTC

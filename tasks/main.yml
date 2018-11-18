@@ -18,8 +18,7 @@
   notify: os reboot
 
 - hostname:
-    name: "{{ hostname }}"
-  when: hostname is defined
+    name: "{{ hostname | default(inventory_hostname, true) }}"
   become: yes
   notify: os reboot
 
