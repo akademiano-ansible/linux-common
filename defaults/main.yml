@@ -11,3 +11,6 @@ locales:
 
 locale: en_US.UTF-8
 timezone: Etc/UTC
+
+linux_common_additional_packages: []
+

@@ -1,5 +1,13 @@
 ---
 
+- name: fix resolv.conf
+  file:
+    src: /run/systemd/resolve/resolv.conf
+    dest: /etc/resolv.conf
+    state: link
+  become: yes
+  failed_when: false
+
 - import_tasks: 'repos.yml'
 
 - import_tasks: 'update.yml'

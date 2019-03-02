@@ -1,2 +1,14 @@
 ---
-
+linux_common_packages:
+  - mc
+  - htop
+  - tmux
+  - nano
+  - pv
+  - wget
+  - curl
+  - iotop
+  - python-pexpect
+  - ccache
+  - acl
+  - software-properties-common
