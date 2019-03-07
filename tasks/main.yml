@@ -16,6 +16,7 @@
 
 - stat: path=/etc/cloud/cloud.cfg
   register: cloud_cfg
+  when: ansible_distribution == 'Ubuntu'
 
 - lineinfile:
     path: /etc/cloud/cloud.cfg
