@@ -22,7 +22,7 @@
     path: /etc/cloud/cloud.cfg
     regexp: '^preserve_hostname:'
     line: 'preserve_hostname: true'
-  when: cloud_cfg.stat.exists == True
+  when: cloud_cfg is defined and cloud_cfg.stat is defined and cloud_cfg.stat.exists == True
   become: yes
   notify: os reboot
 

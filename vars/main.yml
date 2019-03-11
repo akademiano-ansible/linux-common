@@ -1,5 +1,6 @@
 ---
 linux_common_packages:
+  - sudo
   - mc
   - htop
   - tmux
