@@ -6,7 +6,7 @@
   async: 1
   poll: 0
   ignore_errors: true
-  when: (inventory_hostname!="localhost" or ansible_connection==local) and reboot_if_need
+  when: (inventory_hostname!="localhost" or ansible_connection=="local") and reboot_if_need
   notify: wait os reboot
   become: yes
 
