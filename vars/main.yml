@@ -8,8 +8,6 @@ linux_common_packages:
   - pv
   - wget
   - curl
-  - iotop
-  - python-pexpect
-  - ccache
-  - acl
+  - python3-pexpect
   - software-properties-common
+  - acl

@@ -1,33 +1,14 @@
 ---
 
-- name: fix resolv.conf
-  file:
-    src: /run/systemd/resolve/resolv.conf
-    dest: /etc/resolv.conf
-    state: link
-  become: yes
-  failed_when: false
-
 - import_tasks: 'repos.yml'
 
 - import_tasks: 'update.yml'
 
 - import_tasks: 'install.yml'
 
-- stat: path=/etc/cloud/cloud.cfg
-  register: cloud_cfg
-  when: ansible_distribution == 'Ubuntu'
-
-- lineinfile:
-    path: /etc/cloud/cloud.cfg
-    regexp: '^preserve_hostname:'
-    line: 'preserve_hostname: true'
-  when: cloud_cfg is defined and cloud_cfg.stat is defined and cloud_cfg.stat.exists == True
-  become: yes
-  notify: os reboot
-
 - hostname:
     name: "{{ hostname | default(inventory_hostname, true) }}"
+    use: debian
   become: yes
   notify: os reboot
 
@@ -36,6 +17,13 @@
     dest: /etc/sudoers
     insertafter: '^#?\s*Defaults\s+env_keep\b'
     line: 'Defaults    env_keep += "SSH_AUTH_SOCK"'
+  become: yes
+
+- name: Disable sudo requiretty
+  lineinfile:
+    dest: /etc/sudoers
+    insertafter: 'Defaults        env_reset'
+    line: 'Defaults        !requiretty'
   become: yes
 
 - import_tasks: 'locale_timezone.yml'

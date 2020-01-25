@@ -18,13 +18,3 @@
     timeout: 180
     host: "{{ ansible_ssh_host }}"
     state: started
-
-- name: systemd-resolved restart
-  systemd:
-    state: restarted
-    name: systemd-resolved
-  become: yes
-
-- name: update tzdata
-  command: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
-  become: yes

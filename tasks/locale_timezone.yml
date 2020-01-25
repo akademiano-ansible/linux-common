@@ -1,26 +1,42 @@
-- name: configure locales
-  locale_gen:
-    name: "{{ item }}"
-    state: present
-  loop: "{{ locales }}"
-  become: yes
-  register: locale_configure
+- name: Set default locale to en_US.UTF-8
+  debconf:
+    name: locales
+    question: locales/default_environment_locale
+    value: "{{ locale }}"
+    vtype: select
 
-- name: gen locale
-  command: /usr/sbin/locale-gen
-  become: yes
-  when: locale_configure.changed
-
-- name: set locale
-  command: "/usr/sbin/update-locale LANG={{ locale }} LC_ALL={{locale}}"
-  become: yes
-  when: locale_configure.changed
+- name: set to generate locales
+  debconf:
+    name: locales
+    question: locales/locales_to_be_generated
+    value: en_US.UTF-8 UTF-8, ru_RU.UTF-8 UTF-8
+    vtype: multiselect
 
 - name: set /etc/localtime
-  file: src=/usr/share/zoneinfo/{{ timezone }} dest=/etc/localtime state=link
+  file:
+    src: "/usr/share/zoneinfo/{{ timezone.areas }}/{{timezone.zone}}"
+    dest: /etc/localtime
+    state: link
   become: yes
 
 - name: set /etc/timezone
-  template: src=timezone dest=/etc/timezone
-  notify: update tzdata
+  template:
+    src: timezone
+    dest: /etc/timezone
+  become: yes
+
+- name: update timezone areas
+  debconf:
+    name: tzdata
+    question: tzdata/Areas
+    value: "{{timezone.areas}}"
+    vtype: select
+  become: yes
+
+- name: update timezone zone
+  debconf:
+    name: tzdata
+    question: "tzdata/Zones{{timezone.zone}}"
+    value: "{{timezone.areas}}"
+    vtype: select
   become: yes

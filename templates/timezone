@@ -1,1 +1,1 @@
-{{ timezone }}
+"{{timezone.areas}}/{{timezone.zone}}"
