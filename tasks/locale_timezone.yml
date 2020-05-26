@@ -4,6 +4,7 @@
     question: locales/default_environment_locale
     value: "{{ locale }}"
     vtype: select
+  become: yes
 
 - name: set to generate locales
   debconf:
@@ -11,6 +12,7 @@
     question: locales/locales_to_be_generated
     value: en_US.UTF-8 UTF-8, ru_RU.UTF-8 UTF-8
     vtype: multiselect
+  become: yes
 
 - name: set /etc/localtime
   file:
